@@ -36,6 +36,8 @@ import AddTransactionPage from "../create/page";
 const AddTransactionForm = ({
   accounts,
   categories,
+  editMode = false,
+  initialData = null,
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -51,7 +53,20 @@ const AddTransactionForm = ({
     reset,
   } = useForm({
     resolver: zodResolver(transactionSchema),
-    defaultValues: {
+    defaultValues: 
+      editMode && initialData ? {
+        type: initialData.type,
+            amount: initialData.amount.toString(),
+            description: initialData.description,
+            accountId: initialData.accountId,
+            category: initialData.category,
+            date: new Date(initialData.date),
+            isRecurring: initialData.isRecurring,
+            ...(initialData.recurringInterval && {
+              recurringInterval: initialData.recurringInterval,
+            }),
+      }:
+    {
             type: "EXPENSE",
             amount: "",
             description: "",
@@ -65,7 +80,7 @@ const AddTransactionForm = ({
     loading: transactionLoading,
     fn: transactionFn,
     data: transactionResult,
-  } = useFetch(createTransaction);
+  } = useFetch(editMode ? updateTransaction : createTransaction);
 
   const onSubmit = async (data) => {
     const formData = {
@@ -73,11 +88,11 @@ const AddTransactionForm = ({
       amount: parseFloat(data.amount),
     };
 
-  //     if (editMode) {
-  //       transactionFn(editId, formData);
-  //     } else {
+      if (editMode) {
+        transactionFn(editId, formData);
+      } else {
         transactionFn(formData);
-  //     }
+      }
    };
 
     const handleScanComplete = (scannedData) => {
@@ -96,11 +111,13 @@ const AddTransactionForm = ({
 
   useEffect(() => {
     if (transactionResult?.success && !transactionLoading) {
-      toast.success("Transaction created successfully");
+      toast.success(editMode
+        ? "Transaction updated successfully"
+        : "Transaction created successfully");
       reset();
       router.push(`/account/${transactionResult.data.accountId}`);
     }
-  }, [transactionResult, transactionLoading]);
+  }, [transactionResult, transactionLoading, editMode]);
 
   const type = watch("type");
   const isRecurring = watch("isRecurring");
@@ -113,7 +130,7 @@ const AddTransactionForm = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Receipt Scanner - Only show in create mode */}
-       <ReceiptScanner onScanComplete={handleScanComplete} />
+       {!editMode && <ReceiptScanner onScanComplete={handleScanComplete} />}
 
       {/* Type */}
       <div className="space-y-2">
@@ -298,7 +315,7 @@ const AddTransactionForm = ({
           Cancel
         </Button>
         <Button type="submit" className="w-full" disabled={transactionLoading}>
-          {/* {transactionLoading ? (
+          {transactionLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               {editMode ? "Updating..." : "Creating..."}
@@ -307,8 +324,7 @@ const AddTransactionForm = ({
             "Update Transaction"
           ) : (
             "Create Transaction"
-          )} */}
-          Create Transaction
+          )}
         </Button> 
         </div>
     </form>

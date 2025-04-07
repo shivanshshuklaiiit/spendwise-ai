@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import arcjet from "arcjet";
 
 
 const isProtectedRoute = createRouteMatcher([
@@ -6,6 +7,8 @@ const isProtectedRoute = createRouteMatcher([
     "/account(.*)",
     "/transaction(.*)",
   ]);
+
+
 
 export default clerkMiddleware(async (auth, req) => {
         const { userId } = await auth();
