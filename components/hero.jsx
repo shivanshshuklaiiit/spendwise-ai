@@ -40,7 +40,7 @@ const HeroSection = () => {
               Get Started
             </Button>
           </Link>
-          <Link href="https://www.youtube.com/roadsidecoder">
+          <Link href="https://www.youtube.com/@shivanshkslogs">
             <Button size="lg" variant="outline" className="px-8">
               Watch Demo
             </Button>
@@ -49,7 +49,7 @@ const HeroSection = () => {
         <div className="hero-image-wrapper mt-5 md:mt-0">
           <div ref={imageRef} className="hero-image">
             <Image
-              src="/banner.jpeg"
+              src="/banner.jpg"
               width={1280}
               height={720}
               alt="Dashboard Preview"
