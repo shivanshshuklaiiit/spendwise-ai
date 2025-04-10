@@ -12,7 +12,7 @@ export default function Home() {
       {/* Hero Section */}
       <HeroSection />
       {/* Stats Section */}
-      <section className="py-20 bg-blue-50">
+      <section className="py-20 bg-blue-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {statsData.map((stat, index) => (
@@ -48,22 +48,22 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-blue-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {howItWorksData.map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  {step.icon}
-                </div>
-                <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
-                <p className="text-gray-600">{step.description}</p>
-              </div>
-            ))}
+      <section className="py-20 bg-blue-50 dark:bg-gray-900">
+  <div className="container mx-auto px-4">
+    <h2 className="text-3xl font-bold text-center mb-16 text-gray-800 dark:text-gray-200">How It Works</h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      {howItWorksData.map((step, index) => (
+        <div key={index} className="text-center">
+          <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
+            {step.icon}
           </div>
+          <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">{step.title}</h3>
+          <p className="text-gray-600 dark:text-gray-300">{step.description}</p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20">
