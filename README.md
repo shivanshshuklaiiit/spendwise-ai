@@ -1,1 +1,1 @@
-# welth-ai
+# spendwise-ai
