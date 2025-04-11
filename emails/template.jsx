@@ -10,24 +10,6 @@ import {
   } from "@react-email/components";
   import * as React from "react";
   
-  // Dummy data for preview
-  // const PREVIEW_DATA = {
-  //   monthlyReport: {
-  //     userName: "Shivansh",
-  //     type: "monthly-report",
-  //    data: {},
-    //},
-  //   budgetAlert: {
-  //     userName: "John Doe",
-  //     type: "budget-alert",
-  //     data: {
-  //       percentageUsed: 85,
-  //       budgetAmount: 4000,
-  //       totalExpenses: 3400,
-  //     },
-  //   },
-  // };
-  
   export default function EmailTemplate({
     userName = "",
     type = "monthly-report",
@@ -83,7 +65,7 @@ import {
               {/* AI Insights */}
               {data?.insights && (
                 <Section style={styles.section}>
-                  <Heading style={styles.heading}>Welth Insights</Heading>
+                  <Heading style={styles.heading}>SpendWise Insights</Heading>
                   {data.insights.map((insight, index) => (
                     <Text key={index} style={styles.text}>
                       • {insight}
@@ -93,7 +75,7 @@ import {
               )}
   
               <Text style={styles.footer}>
-                Thank you for using Welth. Keep tracking your finances for better
+                Thank you for using SpendWise. Keep tracking your finances for better
                 financial health!
               </Text>
             </Container>
